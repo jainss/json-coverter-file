@@ -1,0 +1,32 @@
+const fs = require('fs');
+const xlsx = require("xlsx");
+let data = require("./example.json");
+
+// make a xlsx file
+function excelwriter() {
+    // // make a new workbook 
+    let newWb = xlsx.utils.book_new(pathlink, json, sheetname);
+    // // make a new sheet 
+    let newWs = xlsx.utils.json_to_sheet(json);
+    // // now append the sheet 
+    xlsx.utils.book_append_sheet(newWb, newWs, sheetname);
+    // //file path 
+    xlsx.writeFile(newWb, pathlink);
+}
+
+
+
+function excelreader(pathlink, sheetname) {
+    if (fs.existsSync(pathlink) == false) {
+        return [];
+    }
+    // // read the xlsx file
+    // // This is for workbook read 
+    let wb = xlsx.readFile(pathlink);
+    // // this is for sheet 
+    let exceldata = wb.Sheets[sheetname];
+    // // after get the sheet data
+    let ans = xlsx.utils.sheet_to_json(exceldata);
+    // //print or return 
+    return
+}
